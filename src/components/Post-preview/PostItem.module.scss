@@ -1,0 +1,14 @@
+.preview{
+  max-width: 940px;
+  background-color: #ffffff;
+  padding: 15px 15px 24px 19px;
+  filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+  &__body{
+    max-width: 682px;
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 12px;
+    line-height: 22px;
+  }
+}
+

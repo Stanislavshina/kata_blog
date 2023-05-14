@@ -1,0 +1,63 @@
+.header{
+  padding: 22px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  &__title{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+    text-decoration: none;
+  }
+  &__right-col{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 27px;
+  }
+  &__link-create{
+    color: #52C41A;
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    padding: 6px 10px;
+  }
+  &__name-block{
+    display: flex;
+    gap: 13px;
+    align-items: center;
+  }
+  &__link-name{
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  &__link-sig-in{
+    font-size: 18px;
+    line-height: 28px;
+  }
+  &__link-reg{
+    color: #52C41A;
+    font-size: 18px;
+    line-height: 28px;
+    padding: 10px;
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+  }
+}
+.button__log-out{
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+}
+
+a{
+  text-decoration: none;
+}

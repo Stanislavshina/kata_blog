@@ -1,0 +1,23 @@
+.article{
+  max-width: 940px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  padding: 17px 14px 17px 19px;
+  &__describe{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: rgba(0, 0, 0, 0.5);;
+  }
+  &__buttons-block{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  &__body{
+    color: rgba(0, 0, 0, 0.75);
+  }
+}
