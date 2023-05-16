@@ -38,7 +38,7 @@ const Header: React.FC = () => {
     <div className={cl["header__right-col"]}>
       <NavLink
         children="Sign In"
-        to={""}
+        to={"/sign-in"}
         className={cl["header__link-sig-in"]}
       />
       <NavLink to={""} children="Sign Up" className={cl["header__link-reg"]} />

@@ -39,13 +39,11 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   const date = converTime(updatedAt);
   const tags = tagList.length ? (
     <ul className={cl["header__tag-list"]}>
-      {tagList.map((el: string) =>
-        el.length ? (
-          <li key={nanoid()} className={cl["header__tag"]}>
-            {el}
-          </li>
-        ) : null
-      )}
+      {tagList.map((el: string) => (
+        <li key={nanoid()} className={cl["header__tag"]}>
+          {el}
+        </li>
+      ))}
     </ul>
   ) : null;
   const postButton = (

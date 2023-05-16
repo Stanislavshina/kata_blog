@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import cl from "./Post.module.scss";
 import PostHeader from "../../components/PostHeader/PostHeader";
-import { Article } from "../../components/types/Article";
+import { Article } from "../../types/Article";
 import { ExclamationCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";

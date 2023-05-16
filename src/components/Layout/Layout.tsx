@@ -3,10 +3,10 @@ import Header from "../Header/Header";
 
 const Layout: React.FC = () => {
   return (
-    <>
+    <div className="App">
       <Header />
       <Outlet />
-    </>
+    </div>
   );
 };
 

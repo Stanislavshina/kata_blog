@@ -1,27 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const login = createAsyncThunk(
-  "user/login",
-  async ({ email, password }) => {
-    console.log(11);
+type Data = {
+  email: string;
+  password: string;
+};
 
-    try {
-      const res = await axios.post(
-        `https://blog.kata.academy/api/users/login`,
-        { user: { email, password } }
-      );
-      if (res.status === 422) {
-        return "чот не так";
-      }
-      console.log(res.data);
+export const login = createAsyncThunk("user/login", async (data: Data) => {
+  console.log(11);
 
-      return res.data;
-    } catch (error) {
-      throw new Error("nope");
+  try {
+    const { email, password } = data;
+    const res = await axios.post(`https://blog.kata.academy/api/users/login`, {
+      user: { email, password },
+    });
+    if (res.status === 422) {
+      return "чот не так";
     }
+    console.log(res.data);
+
+    return res.data;
+  } catch (error) {
+    throw new Error("nope");
   }
-);
+});
 
 const userSlice = createSlice({
   name: "user",

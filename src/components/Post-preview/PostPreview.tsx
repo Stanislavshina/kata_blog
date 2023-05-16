@@ -1,7 +1,7 @@
 import React from "react";
 import cl from "./PostItem.module.scss";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { Article } from "../types/Article";
+import { Article } from "../../types/Article";
 import PostHeader from "../PostHeader/PostHeader";
 import { truncateText } from "../../utils/truncateText";
 

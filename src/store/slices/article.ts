@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Article } from "../../components/types/Article";
+import { Article } from "../../types/Article";
 
 type ArticleState = {
   articles: Article[];
