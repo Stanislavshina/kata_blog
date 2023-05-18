@@ -54,5 +54,5 @@ const articleSlice = createSlice({
   },
 });
 
-export const { setNextPage } = articleSlice.actions;
+export const { setNextPage, getFavoritedArticles } = articleSlice.actions;
 export default articleSlice.reducer;

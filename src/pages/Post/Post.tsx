@@ -8,6 +8,7 @@ import { Article } from "../../types/Article";
 import { ExclamationCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { useAppSelector } from "../../store/handleHooks";
 
 const buttonStyle = {
   padding: "6px 17px",
@@ -33,23 +34,45 @@ const editButtonStyle = {
 
 const Post: React.FC = () => {
   const [data, setData] = useState<Article | null>(null);
+  const author = useAppSelector((state) => state.user);
   const { id } = useParams();
+  console.log(author);
 
   useEffect(() => {
     axios
       .get(`https://blog.kata.academy/api/articles/${id}`)
       .then((d) => setData(d.data.article));
   }, [id]);
-  console.log(data);
+
   const navigate = useNavigate();
 
   const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
   if (!data) return <div>{antIcon}</div>;
+  const btnGroup =
+    data.author.username === author.username ? (
+      <div
+        className={cl["article__buttons-block"]}
+        style={{ alignSelf: "flex-end" }}
+      >
+        <Popconfirm
+          placement="right"
+          title="Are you sure to delete this article?"
+          onConfirm={() => navigate("/")}
+          onCancel={() => console.log("no")}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button style={deleteButtonStyle} type="link">
+            Delete
+          </Button>
+        </Popconfirm>
+        <Button style={editButtonStyle}>Edit</Button>
+      </div>
+    ) : null;
 
   return (
     <article className={cl["article"]}>
       <PostHeader
-        favorited={data.favorited}
         favoritesCount={data.favoritesCount}
         title={data.title}
         slug={data.slug}
@@ -59,23 +82,9 @@ const Post: React.FC = () => {
         tagList={data.tagList}
         link={false}
       />
+      {btnGroup}
       <div className={cl["article__describe"]}>
         {data.description ? <p>{data.description}</p> : null}
-        <div className={cl["article__buttons-block"]}>
-          <Popconfirm
-            placement="right"
-            title="Are you sure to delete this article?"
-            onConfirm={() => navigate("/")}
-            onCancel={() => console.log("no")}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button style={deleteButtonStyle} type="link">
-              Delete
-            </Button>
-          </Popconfirm>
-          <Button style={editButtonStyle}>Edit</Button>
-        </div>
       </div>
       <main>
         <ReactMarkdown children={data.body} className={cl["article__body"]} />

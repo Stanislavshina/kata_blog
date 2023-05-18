@@ -1,0 +1,18 @@
+.input{
+  width: 300px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: rgba(0, 0, 0, 0.75) !important;
+  &:last-child{
+    margin-bottom: 0px;
+  }
+}
+
+.error{
+  border-color: #F5222D;
+  color: red;
+  &:focus + .input{
+    border-color: #F5222D;
+  }
+}

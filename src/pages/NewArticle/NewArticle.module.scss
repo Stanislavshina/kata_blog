@@ -1,0 +1,57 @@
+.input{
+  width: 875px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  padding: 6px 12px;
+  color: rgba(0, 0, 0, 0.75) !important;
+  &:last-child{
+    margin-bottom: 0px;
+  }
+}
+
+.textArea{
+  resize: none;
+  height: 170px;
+  padding: 7px 12px;
+  width: 875px;
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+}
+
+.tags{
+  & .input{
+    width: 300px;
+  }
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.add{
+  cursor: pointer;
+  width: 140px;
+  padding: 8px 40px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #1890FF;
+  border: 1px solid #1890FF;
+border-radius: 4px;
+background-color: #ffffff;
+}
+
+.delete{
+  cursor: pointer;
+  width: 140px;
+  padding: 8px 40px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #F5222D;
+  border: 1px solid #F5222D;
+border-radius: 4px;
+background-color: #ffffff;
+}
+
+.add:first-child{
+  margin-left: 20px;
+}

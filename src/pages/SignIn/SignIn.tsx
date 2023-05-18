@@ -3,55 +3,72 @@ import { useAppDispatch } from "../../store/handleHooks";
 import { login } from "../../store/slices/user";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-type Data = {
-  username?: string;
-  email: string;
-  password: string;
-  image?: string;
-};
+import cl from "./SignIn.module.scss";
+import Form from "../../components/Form/Form";
+import { User } from "../../types/User";
 
 const SignIn: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onChange",
+  });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  // eslint-disable-next-line no-useless-escape
   const emailpattern =
+    // eslint-disable-next-line no-useless-escape
     /^(?:(?:[^<>()[\]\\.,;:\s@\"]+(?:\.[^<>()[\]\\.,;:\s@\"]+)*)|\".+?\")@(?:(?:(?!-)[a-z0-9\-]{1,63}(?<!-)\.)+[a-z]{2,})$/i;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const res = await dispatch(login(data as Data));
+    const res = await dispatch(login(data as User));
     const { payload } = res;
-    payload ? navigate("/") : setError("somthinh went wrong");
+    payload ? navigate("/") : setError("Пароль или почта указаны не верно");
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Sign in</h1>
-
-      <label>Email</label>
-      <input
-        {...register("email", { required: true, pattern: emailpattern })}
-      />
-      {errors.email && errors.email.type === "required" && (
-        <p>This field is required.</p>
-      )}
-      {errors.email && errors.email.type === "pattern" && (
-        <p>Invalid email address.</p>
-      )}
-
-      <label>Password</label>
-      <input {...register("password", { required: true })} />
-      {error && <p>{error}</p>}
-
-      <button type="submit">Submit</button>
-    </form>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      title="Sign In"
+      buttonText="Login"
+      link="Sign Up."
+    >
+      <label className={cl["label"]}>
+        Email
+        <input
+          type="email"
+          placeholder="Email adress"
+          {...register("email", { required: true, pattern: emailpattern })}
+          className={`${cl.input} ${errors.email ? cl.error : ""}`}
+        />
+        {errors.email && errors.email.type === "required" && (
+          <p>Укажите верный адресс почты</p>
+        )}
+        {errors.email && errors.email.type === "pattern" && (
+          <p className={cl["error"]}>Укажите верный адресс почты</p>
+        )}
+      </label>
+      <label>
+        Password
+        <input
+          placeholder="password"
+          className={cl["input"]}
+          {...register("password", { required: true })}
+        />
+        {error && (
+          <p className={cl["error"]} style={{ textAlign: "center" }}>
+            {error}
+          </p>
+        )}
+      </label>
+    </Form>
   );
 };
 

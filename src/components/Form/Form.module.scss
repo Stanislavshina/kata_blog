@@ -1,0 +1,37 @@
+.form{
+  font-family: 'Roboto';
+  color: #262626;
+  font-size: 14px;
+  line-height: 22px;
+  margin-top: 59px;
+  background-color: #ffffff;
+  max-width: 940px;
+  width: min-content;
+  padding: 48px 37px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 21px;
+  &__title{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+  }
+  &__field{
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &__submit{
+    cursor: pointer;
+    max-width: 320px;
+    width: 100%;
+    background: #1890FF;
+    border-radius: 4px; 
+    padding: 8px;
+    color: #FFFFFF;
+    font-size: 16px;
+  }
+}

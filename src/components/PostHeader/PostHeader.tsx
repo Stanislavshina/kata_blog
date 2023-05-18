@@ -1,15 +1,16 @@
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { Button, Avatar } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { converTime } from "../../utils/convertTime";
 import { nanoid } from "nanoid";
 import cl from "./PostHeader.module.scss";
+import { deleteFavorited, setFavorited } from "../../api/favorite";
+import { useAppSelector } from "../../store/handleHooks";
 
 interface PostHeaderProps {
   slug: string;
   updatedAt: string;
-  favorited: boolean;
   title: string;
   favoritesCount: number;
   tagList: string[];
@@ -21,7 +22,6 @@ interface PostHeaderProps {
 const PostHeader: React.FC<PostHeaderProps> = ({
   slug,
   updatedAt,
-  favorited,
   title,
   favoritesCount,
   tagList,
@@ -29,6 +29,33 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   image,
   link,
 }) => {
+  const { isAuth, token } = useAppSelector((state) => state.user);
+  const [favorite, setFavorite] = useState(
+    () => isAuth && Boolean(localStorage.getItem(slug))
+  );
+  const [count, setCount] = useState(favoritesCount);
+  const handleClick = () => {
+    if (!favorite) {
+      setFavorited(slug, token).then((d) =>
+        localStorage.setItem(d.data.article.slug, d.data.article.slug)
+      );
+      setFavorite(true);
+      setCount((count) => (count += 1));
+    } else {
+      deleteFavorited(slug, token).then((d) =>
+        localStorage.removeItem(d.data.article.slug)
+      );
+      setFavorite(false);
+      setCount((count) => (count -= 1));
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!isAuth) return setFavorite(false);
+    }, 100);
+  }, [isAuth]);
+
   const titleLink = link ? (
     <Link to={`articles/${slug}`} className={cl["header__title"]}>
       {title}
@@ -48,9 +75,11 @@ const PostHeader: React.FC<PostHeaderProps> = ({
   ) : null;
   const postButton = (
     <Button
+      onClick={handleClick}
       style={{ border: "none", width: "13px" }}
+      disabled={!isAuth}
       icon={
-        favorited ? (
+        favorite ? (
           <HeartFilled style={{ color: "#FF0707" }} />
         ) : (
           <HeartOutlined />
@@ -65,9 +94,7 @@ const PostHeader: React.FC<PostHeaderProps> = ({
           {titleLink}
           <div className={cl["header__favorited"]}>
             {postButton}
-            <span className={cl["header__favorited-span"]}>
-              {favoritesCount}
-            </span>
+            <span className={cl["header__favorited-span"]}>{count}</span>
           </div>
         </div>
         {tags}

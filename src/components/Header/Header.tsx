@@ -1,6 +1,6 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/handleHooks";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Avatar, Button } from "antd";
 import cl from "./Header.module.scss";
 import { logOut } from "../../store/slices/user";
@@ -8,20 +8,24 @@ import { logOut } from "../../store/slices/user";
 const Header: React.FC = () => {
   const { isAuth, username, image } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  console.log(username);
+  const handleLogOut = () => {
+    dispatch(logOut());
+    navigate("/");
+  };
 
   const authPanel = (
     <div className={cl["header__right-col"]}>
       <NavLink
         children="Create Article"
-        to={""}
+        to={"/new-article"}
         className={cl["header__link-create"]}
       />
       <div className={cl["header__name-block"]}>
         <NavLink
           children={username}
-          to={""}
+          to={"/edit-profile"}
           className={cl["header__link-name"]}
         />
         <Avatar src={image} style={{ width: "46px", height: "46px" }} />
@@ -29,7 +33,7 @@ const Header: React.FC = () => {
       <Button
         children="Log Out"
         className={cl["button__log-out"]}
-        onClick={() => dispatch(logOut())}
+        onClick={handleLogOut}
       />
     </div>
   );
@@ -41,7 +45,11 @@ const Header: React.FC = () => {
         to={"/sign-in"}
         className={cl["header__link-sig-in"]}
       />
-      <NavLink to={""} children="Sign Up" className={cl["header__link-reg"]} />
+      <NavLink
+        to={"/sign-up"}
+        children="Sign Up"
+        className={cl["header__link-reg"]}
+      />
     </div>
   );
 
